@@ -1,5 +1,5 @@
 # LibrarySimulation
-We provide a full-featured digital library management experiencefor our patrons and library staff. viewing our full catalog of books, 
+We provide a full-featured digital library management experience for our patrons and library staff. 
 
 ## Business Requirements
 ### Patrons (As a patron, I would like to...)
