@@ -30,7 +30,7 @@ namespace Books.Application.BookBorrows
         {
             try
             {
-                var bookBorrow = await bookBorrowService.Get(request.BookBorrowId) ?? 
+                var bookBorrow = await bookBorrowService.Get(request.BookBorrowId) ??
                     throw new ArgumentOutOfRangeException(nameof(request.BookBorrowId));
 
                 var maxRenewalCount = configuration.GetValue<int>("MaxRenewalCount");

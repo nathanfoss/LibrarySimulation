@@ -36,9 +36,9 @@ namespace Books.Application.Books
 
                 var existingAuthor = await authorService.Get(request.AuthorName);
                 existingAuthor ??= await authorService.Add(new Author
-                    {
-                        FullName = request.AuthorName
-                    });
+                {
+                    FullName = request.AuthorName
+                });
 
                 book.AuthorId = existingAuthor.Id;
                 book.DateAdded = DateTime.UtcNow;

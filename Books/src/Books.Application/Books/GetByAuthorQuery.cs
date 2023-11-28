@@ -13,7 +13,7 @@ namespace Books.Application.Books
     public class GetByAuthorQueryHandler : IRequestHandler<GetByAuthorQuery, Result<IEnumerable<Book>>>
     {
         private readonly IBookService bookService;
-        
+
         private readonly ILogger<GetByAuthorQueryHandler> logger;
 
         public GetByAuthorQueryHandler(IBookService bookService, ILogger<GetByAuthorQueryHandler> logger)
