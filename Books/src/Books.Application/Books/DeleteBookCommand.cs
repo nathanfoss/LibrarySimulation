@@ -27,8 +27,12 @@ namespace Books.Application.Books
         {
             try
             {
-                var book = await bookService.Get(request.BookId) ??
-                    throw new ArgumentOutOfRangeException(nameof(request.BookId));
+                var book = await bookService.Get(request.BookId);
+
+                if (book is null || book.IsDeleted)
+                {
+                    return Result.Success();
+                }
 
                 if (book.StatusId != BookStatusEnum.Available)
                 {

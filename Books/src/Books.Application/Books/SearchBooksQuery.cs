@@ -31,7 +31,7 @@ namespace Books.Application.Books
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error fetching all books");
+                logger.LogError(ex, "Error searching books");
                 return Result<IEnumerable<Book>>.Failure(ex);
             }
         }

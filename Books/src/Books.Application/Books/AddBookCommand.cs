@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Books.Application.Books
 {
-    public class AddBookCommand : IRequest<Result>
+    public class AddBookCommand : IRequest<Result<Book>>
     {
         public Book Book { get; set; }
 
         public string AuthorName { get; set; }
     }
 
-    public class AddBookCommandHandler : IRequestHandler<AddBookCommand, Result>
+    public class AddBookCommandHandler : IRequestHandler<AddBookCommand, Result<Book>>
     {
         private readonly IBookService bookService;
 
@@ -28,7 +28,7 @@ namespace Books.Application.Books
             this.logger = logger;
         }
 
-        public async Task<Result> Handle(AddBookCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Book>> Handle(AddBookCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -42,15 +42,15 @@ namespace Books.Application.Books
 
                 book.AuthorId = existingAuthor.Id;
                 book.DateAdded = DateTime.UtcNow;
-                await bookService.Add(book);
+                var added = await bookService.Add(book);
 
                 // TODO: Publish book added event
-                return Result.Success();
+                return Result<Book>.Success(added);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "An unexpected error occurred adding book {@Book} for author {Author}", request.Book, request.AuthorName);
-                return Result.Failure(ex);
+                return Result<Book>.Failure(ex);
             }
         }
     }

@@ -1,0 +1,18 @@
+﻿using FluentValidation;
+using MediatR;
+
+namespace LibrarySimulation.Core.Test
+{
+    public class RequestValidatorTestBase<TValidator, TRequest, TResponse> where TValidator : AbstractValidator<TRequest>, new()
+    where TRequest : IRequest<TResponse>
+    {
+        public readonly TValidator Validator;
+        internal readonly RequestValidationBehavior<TRequest, TResponse> ValidationBehavior;
+
+        public RequestValidatorTestBase()
+        {
+            Validator = new TValidator();
+            ValidationBehavior = new RequestValidationBehavior<TRequest, TResponse>(new List<IValidator<TRequest>> { Validator });
+        }
+    }
+}
