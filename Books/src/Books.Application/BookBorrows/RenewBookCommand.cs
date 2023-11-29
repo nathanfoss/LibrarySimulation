@@ -40,7 +40,11 @@ namespace Books.Application.BookBorrows
                 }
 
                 var renewalPeriodDays = configuration.GetValue<int>("RenewalPeriodDays");
-                bookBorrow.ExpirationDate.AddDays(renewalPeriodDays);
+                var expirationDate = bookBorrow.ExpirationDate;
+                var renewalCount = bookBorrow.RenewalCount;
+
+                bookBorrow.ExpirationDate = expirationDate.AddDays(renewalPeriodDays);
+                bookBorrow.RenewalCount = renewalCount + 1;
                 await bookBorrowService.Update(bookBorrow);
                 return Result.Success();
             }

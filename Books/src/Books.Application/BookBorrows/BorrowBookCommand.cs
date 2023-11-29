@@ -1,4 +1,6 @@
-﻿using Books.Domain.Borrows;
+﻿using Books.Domain.Books;
+using Books.Domain.BookStatuses;
+using Books.Domain.Borrows;
 using LibrarySimulation.Shared.Kernel;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -17,13 +19,17 @@ namespace Books.Application.BookBorrows
     {
         private readonly IBookBorrowService bookBorrowService;
 
+        private readonly IBookService bookService;
+
         private readonly IConfiguration configuration;
 
         private readonly ILogger<BorrowBookCommandHandler> logger;
 
-        public BorrowBookCommandHandler(IBookBorrowService bookBorrowService, IConfiguration configuration, ILogger<BorrowBookCommandHandler> logger)
+        public BorrowBookCommandHandler(IBookBorrowService bookBorrowService, IBookService bookService,
+            IConfiguration configuration, ILogger<BorrowBookCommandHandler> logger)
         {
             this.bookBorrowService = bookBorrowService;
+            this.bookService = bookService;
             this.configuration = configuration;
             this.logger = logger;
         }
@@ -32,6 +38,13 @@ namespace Books.Application.BookBorrows
         {
             try
             {
+                var book = await bookService.Get(request.BookId);
+
+                if (book == null || book.StatusId == BookStatusEnum.CheckedOut)
+                {
+                    throw new InvalidOperationException("Unable to request book");
+                }
+
                 var bookBorrow = new BookBorrow
                 {
                     BookId = request.BookId,
