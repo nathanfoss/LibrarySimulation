@@ -1,5 +1,6 @@
 ﻿using Books.Domain.Authors;
 using Books.Domain.Books;
+using Books.Domain.BookStatuses;
 using LibrarySimulation.Shared.Kernel;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -42,6 +43,7 @@ namespace Books.Application.Books
 
                 book.AuthorId = existingAuthor.Id;
                 book.DateAdded = DateTime.UtcNow;
+                book.StatusId = BookStatusEnum.Available;
                 var added = await bookService.Add(book);
 
                 // TODO: Publish book added event
