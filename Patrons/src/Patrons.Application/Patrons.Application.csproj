@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\SharedKernel\LibarySimulation.Shared.Kernel\LibarySimulation.Shared.Kernel.csproj" />
     <ProjectReference Include="..\Patrons.Domain\Patrons.Domain.csproj" />
   </ItemGroup>
 
