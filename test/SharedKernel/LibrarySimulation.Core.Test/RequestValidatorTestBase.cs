@@ -7,7 +7,7 @@ namespace LibrarySimulation.Core.Test
     where TRequest : IRequest<TResponse>
     {
         public readonly TValidator Validator;
-        internal readonly RequestValidationBehavior<TRequest, TResponse> ValidationBehavior;
+        public readonly RequestValidationBehavior<TRequest, TResponse> ValidationBehavior;
 
         public RequestValidatorTestBase()
         {

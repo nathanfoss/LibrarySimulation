@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LibrarySimulation.Core.Test
 {
-    internal class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> validators;
