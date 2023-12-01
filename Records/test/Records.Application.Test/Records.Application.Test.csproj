@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\test\SharedKernel\LibrarySimulation.Core.Test\LibrarySimulation.Core.Test.csproj" />
     <ProjectReference Include="..\..\src\Records.Application\Records.Application.csproj" />
   </ItemGroup>
 

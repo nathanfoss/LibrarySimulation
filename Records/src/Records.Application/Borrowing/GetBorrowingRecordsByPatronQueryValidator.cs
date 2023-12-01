@@ -6,7 +6,7 @@ namespace Records.Application.Borrowing
     {
         public GetBorrowingRecordsByPatronQueryValidator()
         {
-            RuleFor(x => x.PatronId);
+            RuleFor(x => x.PatronId).GreaterThan(0);
         }
     }
 }

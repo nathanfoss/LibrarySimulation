@@ -33,6 +33,12 @@ namespace Records.Application.Fines
             {
                 decimal total = 0;
                 var fines = (await fineService.GetUnpaidByPatron(request.PatronId)).ToList();
+
+                if (!fines.Any())
+                {
+                    return Result.Success();
+                }
+
                 foreach (var fine in fines)
                 {
                     fine.IsPaid = true;
