@@ -1,5 +1,7 @@
 ﻿using Books.Domain.Borrows;
+using Books.Domain.Events;
 using LibrarySimulation.Shared.Kernel;
+using LibrarySimulation.Shared.Kernel.Enums;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -15,13 +17,19 @@ namespace Books.Application.BookBorrows
     {
         private readonly IBookBorrowService bookBorrowService;
 
+        private readonly IBookBorrowEventService bookBorrowEventService;
+
         private readonly IConfiguration configuration;
 
         private readonly ILogger<RenewBookCommandHandler> logger;
 
-        public RenewBookCommandHandler(IBookBorrowService bookBorrowService, IConfiguration configuration, ILogger<RenewBookCommandHandler> logger)
+        public RenewBookCommandHandler(IBookBorrowService bookBorrowService,
+            IBookBorrowEventService bookBorrowEventService,
+            IConfiguration configuration,
+            ILogger<RenewBookCommandHandler> logger)
         {
             this.bookBorrowService = bookBorrowService;
+            this.bookBorrowEventService = bookBorrowEventService;
             this.configuration = configuration;
             this.logger = logger;
         }
@@ -46,6 +54,13 @@ namespace Books.Application.BookBorrows
                 bookBorrow.ExpirationDate = expirationDate.AddDays(renewalPeriodDays);
                 bookBorrow.RenewalCount = renewalCount + 1;
                 await bookBorrowService.Update(bookBorrow);
+
+                await bookBorrowEventService.Add(new BookBorrowEvent
+                {
+                    BookId = bookBorrow.BookId,
+                    PatronId = bookBorrow.PatronId,
+                    EventType = BorrowingRecordTypeEnum.Renewed
+                });
                 return Result.Success();
             }
             catch (Exception ex)

@@ -15,5 +15,7 @@ namespace Books.Client.Books
         Task Add(Book book, string authorName);
 
         Task Delete(int bookId);
+
+        Task Reserve(int bookId, int patronId);
     }
 }

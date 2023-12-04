@@ -1,15 +1,12 @@
 ﻿using Books.Application.BookBorrows;
 using Books.Domain.Borrows;
+using Books.Domain.Events;
 using FluentAssertions;
 using LibrarySimulation.Core.Test;
 using LibrarySimulation.Core.Test.Extensions;
+using LibrarySimulation.Shared.Kernel.Enums;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Books.Application.Test.BookBorrows
 {
@@ -17,9 +14,11 @@ namespace Books.Application.Test.BookBorrows
     {
         private readonly Mock<IBookBorrowService> mockBookBorrowService = new();
 
+        private readonly Mock<IBookBorrowEventService> mockBookBorrowEventService = new();
+
         public RenewBookCommandTest()
         {
-            handler = new RenewBookCommandHandler(mockBookBorrowService.Object, mockConfiguration.Object, mockLogger.Object);
+            handler = new RenewBookCommandHandler(mockBookBorrowService.Object, mockBookBorrowEventService.Object, mockConfiguration.Object, mockLogger.Object);
         }
 
         [Theory]
@@ -44,6 +43,7 @@ namespace Books.Application.Test.BookBorrows
                 var expectedRenewalCount = 1;
                 var expectedExpirationDate = DateTime.UtcNow.AddDays(8);
                 mockBookBorrowService.Verify(x => x.Update(It.Is<BookBorrow>(bb => bb.RenewalCount == expectedRenewalCount && bb.ExpirationDate.Date == expectedExpirationDate.Date)));
+                mockBookBorrowEventService.Verify(x => x.Add(It.Is<BookBorrowEvent>(e => e.EventType == BorrowingRecordTypeEnum.Renewed)));
             }
             else
             {

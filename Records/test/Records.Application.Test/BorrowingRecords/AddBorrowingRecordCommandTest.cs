@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using LibrarySimulation.Core.Test;
 using LibrarySimulation.Core.Test.Extensions;
+using LibrarySimulation.Shared.Kernel.Enums;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Records.Application.Borrowing;

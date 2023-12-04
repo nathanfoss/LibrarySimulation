@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using LibrarySimulation.Shared.Kernel.Enums;
+using MediatR;
 using Records.Application.Borrowing;
 using Records.Domain.Borrowing;
 

@@ -3,9 +3,11 @@ using Books.Domain;
 using Books.Domain.Authors;
 using Books.Domain.Books;
 using Books.Domain.Borrows;
+using Books.Domain.Events;
 using Books.Infrastructure.Authors;
 using Books.Infrastructure.BookBorrows;
 using Books.Infrastructure.Books;
+using Books.Infrastructure.Events;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Books.Infrastructure.Extensions
@@ -17,6 +19,7 @@ namespace Books.Infrastructure.Extensions
             services.AddTransient<IAuthorService, AuthorService>()
                 .AddTransient<IBookService, BookService>()
                 .AddTransient<IBookBorrowService, BookBorrowService>()
+                .AddTransient<IBookBorrowEventService, BookBorrowEventService>()
                 .AddLogging()
                 .AddDbContext<BookDbContext>()
                 .AddMediatR(cfg =>

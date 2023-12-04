@@ -1,4 +1,6 @@
-﻿namespace Records.Domain.Borrowing
+﻿using LibrarySimulation.Shared.Kernel.Enums;
+
+namespace Records.Domain.Borrowing
 {
     public class BorrowingRecordType
     {

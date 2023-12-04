@@ -2,9 +2,11 @@
 using Books.Domain.Books;
 using Books.Domain.BookStatuses;
 using Books.Domain.Borrows;
+using Books.Domain.Events;
 using FluentAssertions;
 using LibrarySimulation.Core.Test;
 using LibrarySimulation.Core.Test.Extensions;
+using LibrarySimulation.Shared.Kernel.Enums;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -19,11 +21,13 @@ namespace Books.Application.Test.BookBorrows
     {
         private readonly Mock<IBookBorrowService> mockBookBorrowService = new();
 
+        private readonly Mock<IBookBorrowEventService> mockBookBorrowEventService = new();
+
         private readonly Mock<IBookService> mockBookService = new();
 
         public BorrowBookCommandTest()
         {
-            handler = new BorrowBookCommandHandler(mockBookBorrowService.Object, mockBookService.Object, mockConfiguration.Object, mockLogger.Object);
+            handler = new BorrowBookCommandHandler(mockBookBorrowService.Object, mockBookService.Object, mockBookBorrowEventService.Object, mockConfiguration.Object, mockLogger.Object);
         }
 
         [Theory]
@@ -46,6 +50,8 @@ namespace Books.Application.Test.BookBorrows
             if (testData.Succeeded)
             {
                 mockBookBorrowService.Verify(x => x.Add(It.Is<BookBorrow>(bb => bb.CreatedDate.Date == DateTime.UtcNow.Date)));
+                mockBookService.Verify(x => x.Update(It.Is<Book>(b => b.StatusId == BookStatusEnum.CheckedOut)));
+                mockBookBorrowEventService.Verify(x => x.Add(It.Is<BookBorrowEvent>(e => e.EventType == BorrowingRecordTypeEnum.CheckedOut)));
             }
             else
             {

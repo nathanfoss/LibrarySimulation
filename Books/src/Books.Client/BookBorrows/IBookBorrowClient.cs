@@ -15,5 +15,7 @@ namespace Books.Client.BookBorrows
         Task<IEnumerable<BookBorrow>> GetPatronBorrowedBooks(int patronId);
 
         Task<IEnumerable<BookBorrow>> GetAllPatronBorrowedBooks(int patronId);
+
+        Task ReturnBook(int bookBorrowId);
     }
 }

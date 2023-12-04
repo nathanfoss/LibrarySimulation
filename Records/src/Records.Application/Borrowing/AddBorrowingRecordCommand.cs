@@ -1,4 +1,5 @@
 ﻿using LibrarySimulation.Shared.Kernel;
+using LibrarySimulation.Shared.Kernel.Enums;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Records.Domain.Borrowing;

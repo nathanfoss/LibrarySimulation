@@ -1,4 +1,5 @@
-﻿using Records.Domain.Borrowing;
+﻿using LibrarySimulation.Shared.Kernel.Enums;
+using Records.Domain.Borrowing;
 
 namespace Records.Client.Borrowing
 {

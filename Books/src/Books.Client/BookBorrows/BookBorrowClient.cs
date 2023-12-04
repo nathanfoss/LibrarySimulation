@@ -50,5 +50,10 @@ namespace Books.Client.BookBorrows
         {
             await mediator.Send(new RenewBookCommand { BookBorrowId = bookBorrowId });
         }
+
+        public async Task ReturnBook(int bookBorrowId)
+        {
+            await mediator.Send(new ReturnBookCommand { BookBorrowId = bookBorrowId });
+        }
     }
 }

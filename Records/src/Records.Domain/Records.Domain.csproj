@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.25" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\SharedKernel\LibarySimulation.Shared.Kernel\LibarySimulation.Shared.Kernel.csproj" />
+  </ItemGroup>
+
 </Project>

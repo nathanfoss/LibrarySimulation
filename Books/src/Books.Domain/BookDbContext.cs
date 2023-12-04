@@ -2,6 +2,7 @@
 using Books.Domain.Books;
 using Books.Domain.BookStatuses;
 using Books.Domain.Borrows;
+using Books.Domain.Events;
 using Books.Domain.Genres;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,5 +24,7 @@ namespace Books.Domain
         public DbSet<BookStatus> BookStatuses { get; set; }
 
         public DbSet<BookBorrow> BookBorrows { get; set; }
+
+        public DbSet<BookBorrowEvent> Events { get; set; }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using Books.Application.Books;
 using Books.Domain.Books;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Books.Client.Books
 {
@@ -54,6 +49,11 @@ namespace Books.Client.Books
         {
             var result = await mediator.Send(new SearchBooksQuery { SearchText = searchText });
             return result.Response;
+        }
+
+        public async Task Reserve(int bookId, int patronId)
+        {
+            await mediator.Send(new ReserveBookCommand { BookId = bookId, PatronId = patronId });
         }
     }
 }

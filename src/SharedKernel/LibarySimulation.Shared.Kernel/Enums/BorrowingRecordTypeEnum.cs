@@ -1,4 +1,4 @@
-﻿namespace Records.Domain.Borrowing
+﻿namespace LibrarySimulation.Shared.Kernel.Enums
 {
     public enum BorrowingRecordTypeEnum
     {

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using LibrarySimulation.Core.Test;
 using LibrarySimulation.Shared.Kernel;
+using LibrarySimulation.Shared.Kernel.Enums;
 using Records.Application.Borrowing;
 using Records.Application.Fines;
-using Records.Domain.Borrowing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
