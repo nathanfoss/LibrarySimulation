@@ -2,7 +2,7 @@
 using Patrons.Client.Patrons;
 using Patrons.Infrastructure.DependencyInjection;
 
-namespace Patrons.Client.DependencyInjection
+namespace Patrons.Client.Extensions
 {
     public static class DependencyInjection
     {
